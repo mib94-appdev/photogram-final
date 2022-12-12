@@ -31,30 +31,6 @@
         <input type="text" id="image_box" name="query_image">
       </div>
 
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="query_owner_id">
-      </div>
-
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
-
-        <input type="text" id="comments_count_box" name="query_comments_count">
-      </div>
-
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
-
-        <input type="text" id="likes_count_box" name="query_likes_count">
-      </div>
-
       <button>
         Create photo
       </button>
@@ -68,7 +44,7 @@
     <table border="1">
       <tr>
         <th>
-          ID
+          Image
         </th>
 
         <th>
@@ -76,27 +52,15 @@
         </th>
 
         <th>
-          Image
-        </th>
-
-        <th>
           Owner
         </th>
 
         <th>
-          Comments count
+          Posted
         </th>
 
         <th>
-          Likes count
-        </th>
-
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
+          Likes
         </th>
 
         <th>
@@ -106,7 +70,7 @@
       <% @list_of_photos.each do |a_photo| %>
       <tr>
         <td>
-          <%= a_photo.id %>
+          <%= a_photo.image %>
         </td>
 
         <td>
@@ -114,26 +78,15 @@
         </td>
 
         <td>
-          <%= a_photo.image %>
-        </td>
-
-        <td>
           <%= a_photo.owner_id %>
-        </td>
-
-        <td>
-          <%= a_photo.comments_count %>
-        </td>
-
-        <td>
-          <%= a_photo.likes_count %>
         </td>
 
         <td>
           <%= time_ago_in_words(a_photo.created_at) %> ago
         </td>
+
         <td>
-          <%= time_ago_in_words(a_photo.updated_at) %> ago
+          <%= a_photo.likes_count %>
         </td>
 
         <td>
