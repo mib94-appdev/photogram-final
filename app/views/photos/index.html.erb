@@ -1,42 +1,27 @@
-<div>
-  <div>
+
     <h1>
       List of photos
     </h1>
-  </div>
-</div>
 
-<hr>
-
-<div>
-  <div>
-    <h2>
-      Add a new photo
-    </h2>
-
+    <% if session.fetch(:user_id) != nil %>
     <form action="/insert_photo" method="post" class="form-horizontal" enctype="multipart/form-data">>
-      <div>
-        <label for="caption_box">
-          Caption
-        </label>
-
-        <textarea id="caption_box" name="query_caption" rows="2" placeholder="Enter a caption for the photo..."></textarea>
-      </div>
-
-      <div>
         <label for="image_box">
           Image
         </label>
 
         <input type="file" id="image_box" name="query_image" class="form-control">
-      </div>
+
+         <label for="caption_box">
+          Caption
+        </label>
+
+        <textarea id="caption_box" name="query_caption" rows="2" placeholder="Enter a caption for the photo..."></textarea>
 
       <button>
         Add photo
       </button>
     </form>
-  </div>
-</div>
+    <% end %>
 
 <hr>
 <div>

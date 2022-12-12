@@ -51,15 +51,63 @@
         Fans
       </dt>
       <dd>
-        #insert names of fans
+        <% @the_photo.fans.each do |a_fan| %>
+          <%= a_fan.username %>
+        <% end %>
       </dd>
 
       <dt>
         Add a fan
       </dt>
-      <dd>
-        #insert like button
-      </dd>
+
+      <% if Like.where({ :fan_id => @current_user.id }) != nil %>
+        <dd>
+          <a href="/delete_like/<%= @the_photo.id %>">
+            Unlike
+          </a>
+        </dd>
+      <% else %>
+        <dd>
+          <form action="/insert_like" method="post">
+            <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+            <button>Like</button>
+          </form>
+        </dd>
+      <% end %>
+
+      <% if @current_user.id == @the_photo.owner_id %>
+        <dt>
+          Edit photo
+        </dt>
+        <dd>
+          <form action="/modify_photo/<%= @the_photo.id %>" method="post" class="form-horizontal" enctype="multipart/form-data">>
+              <label for="image_box">
+                Image URL
+              </label>
+
+              <input type="file" id="image_box" name="query_image" class="form-control">
+
+              <label for="caption_box">
+                Caption
+              </label>
+
+              <textarea id="caption_box" name="query_caption" rows="2" placeholder="Enter a caption for the photo..."><%= @the_photo.caption %></textarea>
+
+            <button>
+              Update photo
+            </button>
+          </form>
+        </dd>
+
+        <dt>
+          Delete photo
+        </dt>
+        <dd>
+          <a href="/delete_photo/<%= @the_photo.id %>">
+            Delete this photo
+          </a>
+        </dd>
+      <% end %>
     </dl>
   </div>
 </div>
@@ -76,19 +124,21 @@
     <th>Posted</th>
   </tr>
 
+  <% @matching_comments.each do |a_comment| %>
   <tr>
     <td>
-      roselee
+      <%= a_comment.commenter.username %>
     </td>
 
     <td>
-      Know how to listen, and you will profit even from those who talk badly.
+      <%= a_comment.body %>
     </td>
 
     <td>
-      over 3 years ago
+      <%= time_ago_in_words(a_comment.created_at) %>
     </td>
   </tr>
+  <% end %>
   </table>  
 
 
