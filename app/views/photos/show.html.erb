@@ -1,24 +1,17 @@
 <div>
   <div>
     <h1>
-      Photo #<%= @the_photo.id %> details
+      Photo Details
     </h1>
 
-    <div>
-      <div>
-        <a href="/photos">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_photo/<%= @the_photo.id %>">
-          Delete photo
-        </a>
-      </div>
-    </div>
-
     <dl>
+      <dt>
+        Image
+      </dt>
+      <dd>
+        <img src="<%= @the_photo.image %>" class="img-responsive">
+      </dd>
+
       <dt>
         Caption
       </dt>
@@ -27,24 +20,17 @@
       </dd>
 
       <dt>
-        Image
-      </dt>
-      <dd>
-        <%= @the_photo.image %>
-      </dd>
-
-      <dt>
         Owner
       </dt>
       <dd>
-        <%= @the_photo.owner_id %>
+        <%= @the_photo.owner.username %>
       </dd>
 
       <dt>
-        Comments count
+        Posted
       </dt>
       <dd>
-        <%= @the_photo.comments_count %>
+        <%= time_ago_in_words(@the_photo.created_at) %> ago
       </dd>
 
       <dt>
@@ -55,77 +41,65 @@
       </dd>
 
       <dt>
-        Created at
+        Comments count
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_photo.created_at) %> ago
+        <%= @the_photo.comments_count %>
       </dd>
 
       <dt>
-        Updated at
+        Fans
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_photo.updated_at) %> ago
+        #insert names of fans
+      </dd>
+
+      <dt>
+        Add a fan
+      </dt>
+      <dd>
+        #insert like button
       </dd>
     </dl>
   </div>
 </div>
 
-<hr>
-
-
 <div>
-  <div>
-    <h2>
-      Edit photo
-    </h2>
+  <h2>
+    Comments
+  </h2>
 
-    <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
-      <div>
-        <label for="caption_box">
-          Caption
-        </label>
+  <table>
+  <tr>
+    <th>Commenter</th>
+    <th>Comment</th>
+    <th>Posted</th>
+  </tr>
 
-        <textarea id="caption_box" name="query_caption"><%= @the_photo.caption %></textarea>
-      </div>
+  <tr>
+    <td>
+      roselee
+    </td>
 
-      <div>
-        <label for="image_box">
-          Image
-        </label>
+    <td>
+      Know how to listen, and you will profit even from those who talk badly.
+    </td>
 
-        <input type="text" id="image_box" name="query_image" value="<%= @the_photo.image %>">
-      </div>
+    <td>
+      over 3 years ago
+    </td>
+  </tr>
+  </table>  
 
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
 
-        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_photo.owner_id %>">
-      </div>
+  <h3>Add a new comment</h3>
 
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
+  <form action="/insert_comment" method="post">
+    <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+  
+    <label for="browser_comment">Comment</label>
+    <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
 
-        <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @the_photo.comments_count %>">
-      </div>
-
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
-
-        <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @the_photo.likes_count %>">
-      </div>
-
-      <button>
-        Update photo
-      </button>
-    </form>
-  </div>
+    <button>Add comment</button>
+  </form>
 </div>
-
-<hr>
