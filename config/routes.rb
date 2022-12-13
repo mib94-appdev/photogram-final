@@ -88,6 +88,9 @@ Rails.application.routes.draw do
   # USERS DETAILS PAGE
   get("/users/:path_id", { :controller => "user_authentication", :action => "show" })    
 
+  # USERS FEED
+  get("/users/:path_id/feed", { :controller => "user_authentication", :action => "feed" })   
+
   # SIGN UP FORM
   get("/user_sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
   # CREATE RECORD

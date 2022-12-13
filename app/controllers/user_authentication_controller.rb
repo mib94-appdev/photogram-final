@@ -17,7 +17,29 @@ class UserAuthenticationController < ApplicationController
 
     @the_user = matching_user.at(0)
 
+    # to show list of pictures
+
+    the_user_id = @the_user.id
+
+    matching_own_photos = Photo.where({ :owner_id => the_user_id })
+
+    @own_photo = matching_own_photos
+
     render({ :template => "users/show.html.erb" })
+  end
+
+  def feed
+    the_id = params.fetch("path_id")
+
+    matching_user = User.where({ :username => the_id })
+
+    @the_user = matching_user.at(0)
+
+    # to show feed
+
+    @feed_photos = @the_user.feed
+
+    render({ :template => "users/feed.html.erb" })
   end
   
   
@@ -87,9 +109,6 @@ class UserAuthenticationController < ApplicationController
     @user.comments_count = params.fetch("query_comments_count")
     @user.likes_count = params.fetch("query_likes_count")
     @user.private = params.fetch("query_private", false)
-    @user.sent_follow_requests_count = params.fetch("query_sent_follow_requests_count")
-    @user.received_follow_requests_count = params.fetch("query_received_follow_requests_count")
-    @user.own_photos_count = params.fetch("query_own_photos_count")
     
     if @user.valid?
       @user.save
